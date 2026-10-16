@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 from app import models  # noqa: F401  (registers the tables so create_all can see them)
 from app.database import Base, engine, get_db
-from app.routers import dashboard, employees, leave
+from app.routers import dashboard, employees, leave, policies
 
 # Create any database tables that don't exist yet.
 Base.metadata.create_all(bind=engine)
@@ -25,6 +25,7 @@ app.add_middleware(
 app.include_router(employees.router)
 app.include_router(leave.router)
 app.include_router(dashboard.router)
+app.include_router(policies.router)
 
 
 @app.get("/health")

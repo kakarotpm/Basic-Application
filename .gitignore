@@ -218,3 +218,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Project-specific
+*.db
+node_modules/
+
+# Real HR policy documents (confidential, keep local only)
+backend/policies/*.pdf
+backend/vector_store/

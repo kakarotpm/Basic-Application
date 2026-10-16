@@ -11,26 +11,27 @@ from sqlalchemy import func, select
 from app.database import Base, SessionLocal, engine
 from app.models import Employee, LeaveRequest
 
+# Salaries are annual, in INR. For example, 3_800_000 = ₹38,00,000 (38 lakh).
 SAMPLE_EMPLOYEES = [
     # Engineering (5)
-    ("Priya Sharma", "priya.sharma@company.com", "Engineering", "Engineering Manager", 145000, date(2019, 3, 11), "Active"),
-    ("Marcus Johnson", "marcus.johnson@company.com", "Engineering", "Senior Software Engineer", 128000, date(2020, 7, 1), "Active"),
-    ("Elena Rossi", "elena.rossi@company.com", "Engineering", "Software Engineer", 102000, date(2022, 1, 17), "Active"),
-    ("Kenji Tanaka", "kenji.tanaka@company.com", "Engineering", "DevOps Engineer", 115000, date(2021, 5, 24), "Active"),
-    ("Aisha Bello", "aisha.bello@company.com", "Engineering", "QA Engineer", 88000, date(2023, 9, 4), "Inactive"),
+    ("Priya Sharma", "priya.sharma@company.com", "Engineering", "Engineering Manager", 3_800_000, date(2019, 3, 11), "Active"),
+    ("Marcus Johnson", "marcus.johnson@company.com", "Engineering", "Senior Software Engineer", 2_400_000, date(2020, 7, 1), "Active"),
+    ("Elena Rossi", "elena.rossi@company.com", "Engineering", "Software Engineer", 1_200_000, date(2022, 1, 17), "Active"),
+    ("Kenji Tanaka", "kenji.tanaka@company.com", "Engineering", "DevOps Engineer", 1_800_000, date(2021, 5, 24), "Active"),
+    ("Aisha Bello", "aisha.bello@company.com", "Engineering", "QA Engineer", 850_000, date(2023, 9, 4), "Inactive"),
     # Sales (4)
-    ("David Kim", "david.kim@company.com", "Sales", "Sales Director", 132000, date(2018, 11, 5), "Active"),
-    ("Sofia Martinez", "sofia.martinez@company.com", "Sales", "Account Executive", 85000, date(2021, 2, 15), "Active"),
-    ("James O'Connor", "james.oconnor@company.com", "Sales", "Account Executive", 82000, date(2022, 6, 20), "Active"),
-    ("Fatima Khan", "fatima.khan@company.com", "Sales", "Sales Development Rep", 62000, date(2024, 1, 8), "Active"),
+    ("David Kim", "david.kim@company.com", "Sales", "Sales Director", 3_200_000, date(2018, 11, 5), "Active"),
+    ("Sofia Martinez", "sofia.martinez@company.com", "Sales", "Account Executive", 1_100_000, date(2021, 2, 15), "Active"),
+    ("James O'Connor", "james.oconnor@company.com", "Sales", "Account Executive", 1_000_000, date(2022, 6, 20), "Active"),
+    ("Fatima Khan", "fatima.khan@company.com", "Sales", "Sales Development Rep", 600_000, date(2024, 1, 8), "Active"),
     # Marketing (3)
-    ("Olivia Brown", "olivia.brown@company.com", "Marketing", "Marketing Manager", 110000, date(2020, 4, 13), "Active"),
-    ("Lucas Silva", "lucas.silva@company.com", "Marketing", "Content Strategist", 74000, date(2022, 10, 3), "Active"),
-    ("Hannah Weber", "hannah.weber@company.com", "Marketing", "Digital Marketing Specialist", 70000, date(2023, 3, 27), "Inactive"),
+    ("Olivia Brown", "olivia.brown@company.com", "Marketing", "Marketing Manager", 2_000_000, date(2020, 4, 13), "Active"),
+    ("Lucas Silva", "lucas.silva@company.com", "Marketing", "Content Strategist", 900_000, date(2022, 10, 3), "Active"),
+    ("Hannah Weber", "hannah.weber@company.com", "Marketing", "Digital Marketing Specialist", 750_000, date(2023, 3, 27), "Inactive"),
     # HR (3)
-    ("Grace Okafor", "grace.okafor@company.com", "HR", "HR Manager", 98000, date(2019, 8, 19), "Active"),
-    ("Ravi Patel", "ravi.patel@company.com", "HR", "Recruiter", 68000, date(2021, 11, 29), "Active"),
-    ("Emily Chen", "emily.chen@company.com", "HR", "HR Generalist", 64000, date(2024, 5, 6), "Active"),
+    ("Grace Okafor", "grace.okafor@company.com", "HR", "HR Manager", 1_600_000, date(2019, 8, 19), "Active"),
+    ("Ravi Patel", "ravi.patel@company.com", "HR", "Recruiter", 650_000, date(2021, 11, 29), "Active"),
+    ("Emily Chen", "emily.chen@company.com", "HR", "HR Generalist", 600_000, date(2024, 5, 6), "Active"),
 ]
 
 

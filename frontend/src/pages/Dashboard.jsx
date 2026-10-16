@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { getDashboard } from "../api.js";
-import { formatMoney } from "../format.js";
+import { formatLakhs, formatMoney } from "../format.js";
 
 export default function Dashboard() {
   const [data, setData] = useState(null);
@@ -51,7 +51,7 @@ export default function Dashboard() {
           <BarChart data={data.average_salary_by_department} margin={{ top: 8, right: 8, left: 8, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} />
             <XAxis dataKey="department" tick={{ fontSize: 12 }} />
-            <YAxis tickFormatter={(value) => `$${value / 1000}k`} tick={{ fontSize: 12 }} />
+            <YAxis tickFormatter={formatLakhs} tick={{ fontSize: 12 }} />
             <Tooltip formatter={(value) => [formatMoney(value), "Average salary"]} cursor={{ fill: "#ecfdf5" }} />
             <Bar dataKey="average_salary" fill="#059669" radius={[4, 4, 0, 0]} />
           </BarChart>

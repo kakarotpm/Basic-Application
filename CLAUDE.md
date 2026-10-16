@@ -14,12 +14,25 @@ See [README.md](README.md) for setup commands, project structure and the full AP
 
 ## Stages
 
-### Stage 1: complete (all 4 screens built and tested; not yet committed to Git)
+### Stage 1: complete (committed)
 Dashboard, Employee Directory, Add/Edit Employee, and Leave, with a nav bar. The seed adds 15 employees across 4 departments (Engineering, Sales, Marketing, HR) and 5 leave requests.
 
-### Future stages (design so they fit)
-- **Stage 2:** RAG chatbot over HR policy documents, using a vector database. Add it as its own service/router module beside the existing ones.
-- **Stage 3:** AI agent with tools that call this backend (e.g. apply for leave). Tools should call the existing functions in `backend/app/services/` or the REST API.
+### Stage 2: HR policy chatbot (RAG), in progress
+Decisions made with the user:
+- **Documents:** the user's **real organization HR policies, as PDFs**, in `backend/policies/`. (Claude's sample Markdown policies were deleted at the user's request.) Treat them as confidential: don't quote them outside what's needed. `backend/policies/*.pdf` is gitignored at the user's request.
+  - Files: `Kanerika Employee Handbook.pdf` (22 pages: leave, professional development, anti-sexual-harassment, code of conduct), `IT Policies.pdf` (5 pages, the company address repeats as a header on every page), `India Holiday List-January to December 2026.pdf` (1 page, table). All text-based, no OCR needed.
+  - The organization is in India (Telangana holidays). **The whole app uses ₹ INR** (decided by the user): salaries are annual INR, shown as `₹12,00,000` and as `₹12L` on chart axes.
+- **Chatbot instructions decided by the user** (put these in the Phase 4 system prompt):
+  - **Leave type mapping** from the policy to the app's Leave form: Earned/Privilege Leave (EL/PL) → **Annual**; Sick Leave → **Sick**; everything else (Maternity, Paternity, Bereavement, Comp Off, Leave Without Pay) → **Casual**. When explaining how to apply, name the app type to choose.
+  - **Earned Leave builds up at 1.5 days per month** (18 per year). The handbook also says "one day per month" in one place, which is an error. Always use 1.5.
+- **Embeddings:** a free local model (no API key). **Vector DB:** Chroma, stored in a local folder, kept behind one small module so it can be swapped for pgvector when we move to PostgreSQL.
+- **LLM:** Claude Opus 5.5 (`claude-opus-5-5`) through the official `anthropic` Python SDK. The API key goes in `backend/.env` (gitignored).
+- The chatbot answers **only from retrieved policy passages**, cites its sources, and says when a policy doesn't cover a question. It's read-only and never changes app data.
+
+Phases: 1 policy docs, 2 indexing + search playground, 3 `search_policies` service + `GET /policies/search`, 4 `POST /chat` with Claude, 5 HR Assistant screen, 6 test-question set + docs.
+
+### Future stage (design so it fits)
+- **Stage 3:** AI agent with tools that call this backend (e.g. apply for leave, search policies). Tools should call the existing functions in `backend/app/services/` or the REST API.
 
 ## Code conventions
 

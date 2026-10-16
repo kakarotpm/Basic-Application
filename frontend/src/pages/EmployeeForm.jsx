@@ -125,12 +125,12 @@ export default function EmployeeForm() {
             <input name="job_title" value={form.job_title} onChange={handleChange} className={inputClass(errors.job_title)} />
           </Field>
 
-          <Field label="Annual salary (USD)" error={errors.salary}>
+          <Field label="Annual salary (₹ INR)" error={errors.salary}>
             <input
               name="salary"
               type="number"
               min="1"
-              step="1000"
+              step="10000"
               value={form.salary}
               onChange={handleChange}
               className={inputClass(errors.salary)}

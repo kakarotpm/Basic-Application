@@ -83,3 +83,12 @@ class DashboardOut(BaseModel):
     pending_leave_requests: int
     employees_by_department: list[DepartmentCount]
     average_salary_by_department: list[DepartmentSalary]
+
+
+class PolicyPassage(BaseModel):
+    """One passage from an HR policy document, as found by search."""
+
+    text: str
+    source: str = Field(description="PDF file name")
+    pages: str = Field(description='Page number, or a range like "2-3"')
+    score: float = Field(description="How closely it matches the question, from 0 to 1")
